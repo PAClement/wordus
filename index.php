@@ -10,6 +10,7 @@
     <style>
         body {
             font-family: Verdana, Geneva, Tahoma, sans-serif;
+            background-color: #333;
         }
 
         td {

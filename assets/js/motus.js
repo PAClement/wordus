@@ -43,13 +43,15 @@ document.querySelector('#propose').addEventListener('click', function () {
 
         for (i = 0; i < tab.length; i++) {
             child++;
-            document.querySelector('#row_' + row + ' td:nth-child(' + child + ')').innerHTML = tab_word[i];
+            document.querySelector(`#row_${row} td:nth-child(${child})`).innerHTML = tab_word[i];
         }
+        row++;
+
     } else {
         document.querySelector('#error').classList.remove('error_display'); //add error message
     }
 
-    row++;
+
 });
 
 function getRandomInt(max) {
@@ -61,7 +63,7 @@ function getunderscore(tab_length) {
 
     for (i = 1; i <= 6; i++) {
 
-        discover = discover.concat('<tr id=\"row_' + i + '\"> ');
+        discover = discover.concat(`<tr id=\"row_${i}\"> `);
 
         n = 0;
         while (n < tab_length) {
