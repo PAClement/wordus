@@ -39,6 +39,10 @@
         .error_display {
             display: none;
         }
+
+        .red_letter {
+            background-color: red;
+        }
     </style>
 </head>
 

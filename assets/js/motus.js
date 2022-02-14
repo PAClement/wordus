@@ -68,15 +68,30 @@ document.querySelector('#propose').addEventListener('click', function () {
         let tab_word = current_word.split('');
         let child = 0;
 
+        //put the words
         for (i = 0; i < tab.length; i++) {
             child++;
             document.querySelector(`#row_${row} td:nth-child(${child})`).innerHTML = tab_word[i];
         }
-        row++;
 
+        child = 0;
+
+        //same letter same place
+
+        for (i = 0; i < tab.length; i++) {
+            child++;
+            if (tab[i] === tab_word[i]) {
+                document.querySelector(`#row_${row} td:nth-child(${child})`).classList.add('red_letter');
+            }
+        }
+
+        //same letter other place
+
+        row++;
     } else {
         document.querySelector('#error').classList.remove('error_display'); //add error message
     }
 
+    document.querySelector('#word_propose').value = '';
 
 });
