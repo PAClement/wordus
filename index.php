@@ -41,11 +41,14 @@
         }
 
         .red_letter {
-            background-color: red;
+            background-color: #b71c1c;
         }
 
         .yellow_letter {
-            background-color: yellow;
+            background-image: url("assets/img/yellow-circle.svg");
+            background-position: center;
+            background-size: cover;
+            background-color: #0177E1;
         }
     </style>
 </head>

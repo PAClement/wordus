@@ -69,9 +69,10 @@ document.querySelector('#propose').addEventListener('click', function () {
     if (current_word.length == tab.length && row <= 6) {
 
         let tab_word = current_word.split('');
-        let child = 0;
 
         //put the words
+        let child = 0;
+
         for (i = 0; i < tab.length; i++) {
             child++;
 
@@ -83,15 +84,26 @@ document.querySelector('#propose').addEventListener('click', function () {
 
         for (i = 0; i < tab.length; i++) {
             child++;
+
             if (tab[i] === tab_word[i]) {
                 document.querySelector(`#row_${row} td:nth-child(${child})`).classList.add('red_letter');
+                tab_word.splice(i, 1, " ");
             }
         }
 
+        console.log('tab_word = ' + tab_word);
+
         //same letter other place
+        child = 0;
 
         for (i = 0; i < tab.length; i++) {
+            child++;
 
+            for (j = 0; j < tab.length; j++) {
+                if (tab_word[i] === tab[j]) {
+                    document.querySelector(`#row_${row} td:nth-child(${child})`).classList.add('yellow_letter');
+                }
+            }
         }
 
         row++;
