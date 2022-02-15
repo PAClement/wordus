@@ -81,17 +81,16 @@ document.querySelector('#propose').addEventListener('click', function () {
 
         //same letter good place
         child = 0;
+        let tab_find = [];
 
         for (i = 0; i < tab.length; i++) {
             child++;
 
             if (tab[i] === tab_word[i]) {
                 document.querySelector(`#row_${row} td:nth-child(${child})`).classList.add('red_letter');
-                tab_word.splice(i, 1, " ");
+                tab_find[i] = tab_word.splice(i, 1, " ");
             }
         }
-
-        console.log('tab_word = ' + tab_word);
 
         //same letter other place
         child = 0;
@@ -100,7 +99,7 @@ document.querySelector('#propose').addEventListener('click', function () {
             child++;
 
             for (j = 0; j < tab.length; j++) {
-                if (tab_word[i] === tab[j]) {
+                if (tab_word[i] === tab[j] && tab[j] != tab_find[j]) {
                     document.querySelector(`#row_${row} td:nth-child(${child})`).classList.add('yellow_letter');
                 }
             }
