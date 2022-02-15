@@ -43,6 +43,10 @@
         .red_letter {
             background-color: red;
         }
+
+        .yellow_letter {
+            background-color: yellow;
+        }
     </style>
 </head>
 

@@ -52,13 +52,16 @@ function getGrid(tab_length) {
     document.querySelector('#grid').innerHTML = discover;
 }
 
-let current = getRandomInt(words.length);
-let tab = words[current].label.split('');
+
+let tab = words[getRandomInt(words.length)].label.split('');
 let row = 1;
+
+console.log(tab);
 
 getGrid(tab.length);
 
 document.querySelector('#propose').addEventListener('click', function () {
+    //when word is propose
 
     document.querySelector('#error').classList.add('error_display'); //remove error message
     let current_word = document.querySelector('#word_propose').value;
@@ -76,7 +79,7 @@ document.querySelector('#propose').addEventListener('click', function () {
 
         child = 0;
 
-        //same letter same place
+        //same letter good place
 
         for (i = 0; i < tab.length; i++) {
             child++;
@@ -87,11 +90,15 @@ document.querySelector('#propose').addEventListener('click', function () {
 
         //same letter other place
 
+        for (i = 0; i < tab.length; i++) {
+
+
+        }
+
         row++;
     } else {
         document.querySelector('#error').classList.remove('error_display'); //add error message
     }
 
     document.querySelector('#word_propose').value = '';
-
 });
