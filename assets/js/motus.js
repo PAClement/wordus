@@ -74,12 +74,12 @@ document.querySelector('#propose').addEventListener('click', function () {
         //put the words
         for (i = 0; i < tab.length; i++) {
             child++;
+
             document.querySelector(`#row_${row} td:nth-child(${child})`).innerHTML = tab_word[i];
         }
 
-        child = 0;
-
         //same letter good place
+        child = 0;
 
         for (i = 0; i < tab.length; i++) {
             child++;
@@ -91,7 +91,6 @@ document.querySelector('#propose').addEventListener('click', function () {
         //same letter other place
 
         for (i = 0; i < tab.length; i++) {
-
 
         }
 
