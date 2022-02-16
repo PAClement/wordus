@@ -38,7 +38,6 @@ function getGrid(tab_length) {
 
         n = 0;
         while (n < tab_length) {
-
             discover = discover.concat('<td></td>');
 
             n++;
@@ -64,14 +63,16 @@ document.querySelector('#propose').addEventListener('click', function () {
     //when word is propose
 
     document.querySelector('#error').classList.add('error_display'); //remove error message
-    let tab_word = document.querySelector('#word_propose').value.split('');
+    let tab_word = document.querySelector('#word_propose').value.split(''); //recover value of input
 
     if (tab_word.length == tab.length && row <= 6) {
 
-        let shadow_tab = [].concat(tab);
+        let shadow_tab = [].concat(tab); //ceate shadowtab of tab
+
+        let tab_find = []; //tab find letter
+        let child = 0; //place for letter
 
         //put the words
-        let child = 0;
 
         for (i = 0; i < tab.length; i++) {
             child++;
@@ -81,7 +82,6 @@ document.querySelector('#propose').addEventListener('click', function () {
 
         //same letter good place
         child = 0;
-        let tab_find = [];
 
         for (i = 0; i < tab.length; i++) {
             child++;
@@ -91,8 +91,6 @@ document.querySelector('#propose').addEventListener('click', function () {
                 tab_find[i] = tab_word.splice(i, 1, " ");
             }
         }
-
-        console.log("tab word = " + tab_word);
 
         //same letter other place
         child = 0;
@@ -107,16 +105,12 @@ document.querySelector('#propose').addEventListener('click', function () {
 
                     tab.splice(j, 1, "1");
                     tab_word.splice(i, 1, "0");
-
-                    console.log("tab word = " + tab_word);
-
                 }
             }
         }
 
-        tab = shadow_tab;
-        console.log(tab);
-        console.log(shadow_tab);
+        tab = shadow_tab; //recover tab
+
         row++;
     } else {
         document.querySelector('#error').classList.remove('error_display'); //add error message
