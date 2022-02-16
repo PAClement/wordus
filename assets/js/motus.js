@@ -64,11 +64,11 @@ document.querySelector('#propose').addEventListener('click', function () {
     //when word is propose
 
     document.querySelector('#error').classList.add('error_display'); //remove error message
-    let current_word = document.querySelector('#word_propose').value;
+    let tab_word = document.querySelector('#word_propose').value.split('');
 
-    if (current_word.length == tab.length && row <= 6) {
+    if (tab_word.length == tab.length && row <= 6) {
 
-        let tab_word = current_word.split('');
+        let shadow_tab = [].concat(tab);
 
         //put the words
         let child = 0;
@@ -92,6 +92,8 @@ document.querySelector('#propose').addEventListener('click', function () {
             }
         }
 
+        console.log("tab word = " + tab_word);
+
         //same letter other place
         child = 0;
 
@@ -100,13 +102,21 @@ document.querySelector('#propose').addEventListener('click', function () {
 
             for (j = 0; j < tab.length; j++) {
                 if (tab_word[i] === tab[j] && tab[j] != tab_find[j]) {
+
                     document.querySelector(`#row_${row} td:nth-child(${child})`).classList.add('yellow_letter');
-                    tab.splice(j, 1, "tab_delete");
-                    tab_word.splice(i, 1, "tab_word delete");
+
+                    tab.splice(j, 1, "1");
+                    tab_word.splice(i, 1, "0");
+
+                    console.log("tab word = " + tab_word);
+
                 }
             }
         }
 
+        tab = shadow_tab;
+        console.log(tab);
+        console.log(shadow_tab);
         row++;
     } else {
         document.querySelector('#error').classList.remove('error_display'); //add error message
