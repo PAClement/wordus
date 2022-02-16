@@ -7,63 +7,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Motus</title>
 
-    <style>
-        body {
-            font-family: Verdana, Geneva, Tahoma, sans-serif;
-            background-color: #333;
-        }
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/main.css">
 
-        td {
-            border: 1px solid;
-            height: 50px;
-            width: 50px;
-
-            text-align: center;
-            font-size: 25px;
-            text-transform: uppercase;
-
-            background-color: #0177E1;
-            color: white;
-        }
-
-        .input_propose {
-            margin-bottom: 3%;
-        }
-
-        .error_word {
-            display: block;
-            font-size: 20px;
-            color: red;
-        }
-
-        .error_display {
-            display: none;
-        }
-
-        .yellow_letter {
-            background-image: url("assets/img/yellow-circle.svg");
-            background-position: center;
-            background-size: cover;
-            background-color: #0177E1;
-        }
-
-        .red_letter {
-            background-color: #b71c1c;
-        }
-    </style>
 </head>
 
 <body>
 
-    <h1>WORDTUS</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col-12 d-flex flex-column align-items-center">
+                <h1 class="mt-3 mb-5 text-info">WORDTUS</h1>
 
-    <div class="input_propose">
-        <p id="error" class="error_display error_word">MOT INCORRECT</p>
-        <input id="word_propose" type="text" placeholder="Mot à proposer" />
-        <button id="propose" type="submit">Proposer</button>
+                <div class="mb-5">
+                    <div class="d-flex">
+                        <input id="word_propose" class="form-control rounded-0 rounded-start" type="text" placeholder="Mot à proposer" />
+                        <button id="propose" type="button" class="btn btn-info text-white rounded-0 rounded-end">Proposer</button>
+                    </div>
+                </div>
+
+                <div id="grid"></div>
+
+                <div id="error" class="d-none alert bg-danger col-6 text-white text-center mt-3" role="alert">
+                </div>
+            </div>
+        </div>
     </div>
-
-    <div id="grid"></div>
 
     <script src="assets/js/motus.js"></script>
 </body>

@@ -62,7 +62,10 @@ getGrid(tab.length);
 document.querySelector('#propose').addEventListener('click', function () {
     //when word is propose
 
-    document.querySelector('#error').classList.add('error_display'); //remove error message
+    let error = document.querySelector('#error');
+
+    error.classList.add('d-none'); //remove error message
+
     let tab_word = document.querySelector('#word_propose').value.split(''); //recover value of input
 
     if (tab_word.length == tab.length && row <= 6) {
@@ -110,10 +113,18 @@ document.querySelector('#propose').addEventListener('click', function () {
         }
 
         tab = shadow_tab; //recover tab
-
         row++;
+
+    } else if (tab.length > tab_word.length) {
+
+        error.classList.remove('d-none'); //add error message
+        error.innerHTML = 'MOT TROP COURT';
+
     } else {
-        document.querySelector('#error').classList.remove('error_display'); //add error message
+
+        error.classList.remove('d-none'); //add error message
+        error.innerHTML = 'MOT TROP LONG';
+
     }
 
     document.querySelector('#word_propose').value = '';
