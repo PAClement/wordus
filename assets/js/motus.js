@@ -101,6 +101,8 @@ document.querySelector('#propose').addEventListener('click', function () {
             for (j = 0; j < tab.length; j++) {
                 if (tab_word[i] === tab[j] && tab[j] != tab_find[j]) {
                     document.querySelector(`#row_${row} td:nth-child(${child})`).classList.add('yellow_letter');
+                    tab.splice(j, 1, "tab_delete");
+                    tab_word.splice(i, 1, "tab_word delete");
                 }
             }
         }

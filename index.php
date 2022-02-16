@@ -40,15 +40,15 @@
             display: none;
         }
 
-        .red_letter {
-            background-color: #b71c1c;
-        }
-
         .yellow_letter {
             background-image: url("assets/img/yellow-circle.svg");
             background-position: center;
             background-size: cover;
             background-color: #0177E1;
+        }
+
+        .red_letter {
+            background-color: #b71c1c;
         }
     </style>
 </head>
