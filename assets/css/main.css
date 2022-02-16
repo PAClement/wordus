@@ -4,9 +4,9 @@ body {
 }
 
 td {
-    border: 1px solid;
-    height: 50px;
-    width: 50px;
+    border: 2px solid;
+    height: 70px;
+    width: 70px;
 
     text-align: center;
     font-size: 25px;
