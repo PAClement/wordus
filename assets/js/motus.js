@@ -29,16 +29,21 @@ function getRandomInt(max) {
     return Math.floor(Math.random() * max);
 }
 
-function getGrid(tab_length) {
+function getGrid(tab_length, tab) {
     let discover = '<table><tbody>'; //concat value current underscore
 
-    for (i = 1; i <= 6; i++) {
+    for (let i = 1; i <= 6; i++) {
 
         discover = discover.concat(`<tr id=\"row_${i}\">`);
 
         n = 0;
         while (n < tab_length) {
-            discover = discover.concat('<td></td>');
+
+            n === 0 && i === 1 ? discover = discover.concat(`<td class="red_letter">${tab[0]}</td>`) : "";
+
+            n != 0 && i === 1 ? discover = discover.concat('<td>.</td>') : "";
+
+            i != 1 ? discover = discover.concat('<td></td>') : "";
 
             n++;
         }
@@ -57,7 +62,7 @@ let row = 1;
 
 console.log(tab);
 
-getGrid(tab.length);
+getGrid(tab.length, tab);
 
 document.querySelector('#propose').addEventListener('click', function () {
     //when word is propose
@@ -78,6 +83,10 @@ document.querySelector('#propose').addEventListener('click', function () {
         for (i = 0; i < tab.length; i++) {
             child++;
 
+            if (tab_word[i] != tab[i]) {
+                document.querySelector(`#row_${row} td:nth-child(${child})`).classList.remove('red_letter');
+            }
+
             document.querySelector(`#row_${row} td:nth-child(${child})`).innerHTML = tab_word[i];
         }
 
@@ -90,6 +99,8 @@ document.querySelector('#propose').addEventListener('click', function () {
             if (tab[i] === tab_word[i]) {
                 document.querySelector(`#row_${row} td:nth-child(${child})`).classList.add('red_letter');
                 tab_find[i] = tab_word.splice(i, 1, " ");
+            } else {
+                tab_find[i] = "nf";
             }
         }
 
@@ -111,7 +122,17 @@ document.querySelector('#propose').addEventListener('click', function () {
         }
 
         tab = shadow_tab; //recover tab
+
+        console.log(tab_find);
+
         row++;
+        child = 0;
+
+        tab_find.forEach((target) => {
+            child++;
+            target != "nf" ? document.querySelector(`#row_${row} td:nth-child(${child})`).innerHTML = target : document.querySelector(`#row_${row} td:nth-child(${child})`).innerHTML = ".";
+
+        });
 
     } else if (tab.length > tab_word.length) {
 
