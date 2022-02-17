@@ -14,6 +14,12 @@
 
 <body>
 
+    <nav>
+        <div class="container">
+            <p class="text-center text-muted pt-3">&copy; <?php echo date('Y'); ?> Wordus, v.1</p>
+        </div>
+    </nav>
+
     <div class="container">
 
         <div class="row">
@@ -30,7 +36,7 @@
 
         <div class="row ">
             <div class="d-flex justify-content-center">
-                <div id="input-win" class="col-6 mt-5 d-flex">
+                <div id="input-win" class="col-6 mt-3 d-flex">
                     <input id="word_propose" class="py-2 form-control rounded-0 rounded-start" type="text" placeholder="Mot à proposer" />
                     <button id="propose" type="button" class="btn btn-info text-white rounded-0 rounded-end">Proposer</button>
                 </div>

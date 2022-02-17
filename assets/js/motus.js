@@ -14,9 +14,7 @@ function getGrid(tab_length, tab) {
         while (n < tab_length) {
 
             n === 0 && i === 1 ? discover = discover.concat(`<td class="red_letter">${tab[0]}</td>`) : "";
-
             n != 0 && i === 1 ? discover = discover.concat('<td>.</td>') : "";
-
             i != 1 ? discover = discover.concat('<td></td>') : "";
 
             n++;
@@ -40,30 +38,26 @@ getGrid(tab.length, tab);
 function startPartie() {
     //when word is propose
 
-    document.querySelector('#error').classList.add('d-none'); //remove error message
-
     let tab_word = document.querySelector('#word_propose').value.split(''); //recover value of input
 
     if (tab_word.length == tab.length && row <= 6) {
 
-        let shadow_tab = [].concat(tab); //ceate shadowtab of tab
+        document.querySelector('#error').classList.add('d-none'); //remove error message
 
+        let shadow_tab = [].concat(tab); //create shadowtab of tab (save value)
         let tab_find = []; //tab find letter
-        let child = 0; //place for letter
-        let win = 0; //test for win word
+        let child = 0; //place on DOM for letter
+        let win = 0; //test if is win word
 
         //put the words
 
-        for (i = 0; i < tab.length; i++) {
+        for (let i = 0; i < tab.length; i++) {
             child++;
 
-            //Put current tab value to lowercase
-            tab[i] = tab[i].toLowerCase();
-            tab_word[i] = tab_word[i].toLowerCase();
+            //Put tab_word value to uppercase
+            tab_word[i] = tab_word[i].toUpperCase();
 
-            if (tab_word[i] != tab[i]) {
-                document.querySelector(`#row_${row} td:nth-child(${child})`).classList.remove('red_letter');
-            }
+            tab_word[i] != tab[i] ? document.querySelector(`#row_${row} td:nth-child(${child})`).classList.remove('red_letter') : "";
 
             document.querySelector(`#row_${row} td:nth-child(${child})`).innerHTML = tab_word[i];
         }
@@ -72,7 +66,7 @@ function startPartie() {
 
         child = 0;
 
-        for (i = 0; i < tab.length; i++) {
+        for (let i = 0; i < tab.length; i++) {
             child++;
 
             if (tab[i] === tab_word[i]) {
@@ -87,15 +81,14 @@ function startPartie() {
             }
         }
 
-
         //same letter other place
 
         child = 0;
 
-        for (i = 0; i < tab.length; i++) {
+        for (let i = 0; i < tab.length; i++) {
             child++;
 
-            for (j = 0; j < tab.length; j++) {
+            for (let j = 0; j < tab.length; j++) {
                 if (tab_word[i] === tab[j] && tab[j] != tab_find[j]) {
 
                     document.querySelector(`#row_${row} td:nth-child(${child})`).classList.add('yellow_letter');
@@ -119,9 +112,7 @@ function startPartie() {
             });
         } else {
             //IF WORD WIN
-
-            document.querySelector('#input-win').classList.add('d-none');
-
+            document.querySelector('#input-win').classList.add('d-none'); // remove input and btn
             document.querySelector('#success').classList.remove('d-none'); //add error message for word too small
 
         }
@@ -147,8 +138,6 @@ document.querySelector('#propose').addEventListener('click', function () {
 
 document.querySelector('#word_propose').addEventListener('keydown', function (event) {
 
-    if (event.key === "Enter") {
-        startPartie();
-    }
+    event.key === "Enter" ? startPartie() : "";
 });
 
