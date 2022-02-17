@@ -1,29 +1,3 @@
-const words = [
-    {
-        type: "vrb",
-        label: "manger",
-    },
-    {
-        type: "nom",
-        label: "ordinateur",
-    },
-    {
-        type: "nom",
-        label: "cable",
-    },
-    {
-        type: "vrb",
-        label: "apprendre",
-    },
-    {
-        type: "nom",
-        label: "radiateur",
-    },
-    {
-        type: "vrb",
-        label: "changer",
-    },
-];
 
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
@@ -56,7 +30,7 @@ function getGrid(tab_length, tab) {
     document.querySelector('#grid').innerHTML = discover;
 }
 
-let tab = words[getRandomInt(words.length)].label.split('');
+let tab = words[getRandomInt(words.length)].split('');
 let row = 1;
 
 console.log(tab);
@@ -83,6 +57,10 @@ function startPartie() {
         for (i = 0; i < tab.length; i++) {
             child++;
 
+            //Put current tab value to lowercase
+            tab[i] = tab[i].toLowerCase();
+            tab_word[i] = tab_word[i].toLowerCase();
+
             if (tab_word[i] != tab[i]) {
                 document.querySelector(`#row_${row} td:nth-child(${child})`).classList.remove('red_letter');
             }
@@ -93,7 +71,6 @@ function startPartie() {
         //same letter good place
 
         child = 0;
-
 
         for (i = 0; i < tab.length; i++) {
             child++;

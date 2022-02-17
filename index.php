@@ -48,6 +48,7 @@
         </div>
     </div>
 
+    <script src="assets/js/words.js"></script>
     <script src="assets/js/motus.js"></script>
 </body>
 
