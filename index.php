@@ -24,7 +24,7 @@
 
         <div class="row ">
             <div class="d-flex justify-content-center">
-                <div class="col-6 mb-5 d-flex">
+                <div id="input-win" class="col-6 mb-5 d-flex">
                     <input id="word_propose" class="py-2 form-control rounded-0 rounded-start" type="text" placeholder="Mot à proposer" />
                     <button id="propose" type="button" class="btn btn-info text-white rounded-0 rounded-end">Proposer</button>
                 </div>
@@ -40,6 +40,10 @@
         <div class="row">
             <div class="col-12 d-flex justify-content-center">
                 <div id="error" class="d-none alert bg-danger col-6 text-white text-center mt-3" role="alert"></div>
+                <div id="success" class="d-none alert bg-success col-6 text-white text-center mt-3" role="alert">
+                    BRAVOO VOUS AVEZ GAGNÉ !!<br>
+                    <button type="button" onclick='window.location.reload(false)' class="btn btn-warning mt-1">Rejouer ?</button>
+                </div>
             </div>
         </div>
     </div>

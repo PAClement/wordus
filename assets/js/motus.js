@@ -77,6 +77,7 @@ document.querySelector('#propose').addEventListener('click', function () {
 
         let tab_find = []; //tab find letter
         let child = 0; //place for letter
+        let win = 0; //test for win word
 
         //put the words
 
@@ -91,20 +92,28 @@ document.querySelector('#propose').addEventListener('click', function () {
         }
 
         //same letter good place
+
         child = 0;
+
 
         for (i = 0; i < tab.length; i++) {
             child++;
 
             if (tab[i] === tab_word[i]) {
+
                 document.querySelector(`#row_${row} td:nth-child(${child})`).classList.add('red_letter');
-                tab_find[i] = tab_word.splice(i, 1, " ");
+                tab_find[i] = tab_word.splice(i, 1, " "); //recover good letter in tab_find
+
+                win++;
+
             } else {
-                tab_find[i] = "nf";
+                tab_find[i] = "tab_find-r";
             }
         }
 
+
         //same letter other place
+
         child = 0;
 
         for (i = 0; i < tab.length; i++) {
@@ -115,33 +124,40 @@ document.querySelector('#propose').addEventListener('click', function () {
 
                     document.querySelector(`#row_${row} td:nth-child(${child})`).classList.add('yellow_letter');
 
-                    tab.splice(j, 1, "1");
-                    tab_word.splice(i, 1, "0");
+                    tab.splice(j, 1, "tab-r");
+                    tab_word.splice(i, 1, "tab_word-r");
                 }
             }
         }
 
         tab = shadow_tab; //recover tab
 
-        console.log(tab_find);
-
         row++;
         child = 0;
 
-        tab_find.forEach((target) => {
-            child++;
-            target != "nf" ? document.querySelector(`#row_${row} td:nth-child(${child})`).innerHTML = target : document.querySelector(`#row_${row} td:nth-child(${child})`).innerHTML = ".";
+        if (win != tab.length) {
+            tab_find.forEach((target) => {
+                child++;
+                target != "tab_find-r" ? document.querySelector(`#row_${row} td:nth-child(${child})`).innerHTML = target : document.querySelector(`#row_${row} td:nth-child(${child})`).innerHTML = ".";
 
-        });
+            });
+        } else {
+            //IF WORD WIN
+
+            document.querySelector('#input-win').classList.add('d-none');
+
+            document.querySelector('#success').classList.remove('d-none'); //add error message for word too small
+
+        }
 
     } else if (tab.length > tab_word.length) {
 
-        document.querySelector('#error').classList.remove('d-none'); //add error message
+        document.querySelector('#error').classList.remove('d-none'); //add error message for word too small
         document.querySelector('#error').innerHTML = 'MOT TROP COURT';
 
     } else {
 
-        document.querySelector('#error').classList.remove('d-none'); //add error message
+        document.querySelector('#error').classList.remove('d-none'); //add error message for word too long<
         document.querySelector('#error').innerHTML = 'MOT TROP LONG';
 
     }
