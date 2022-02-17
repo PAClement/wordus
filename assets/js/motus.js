@@ -56,7 +56,6 @@ function getGrid(tab_length, tab) {
     document.querySelector('#grid').innerHTML = discover;
 }
 
-
 let tab = words[getRandomInt(words.length)].label.split('');
 let row = 1;
 
@@ -64,7 +63,7 @@ console.log(tab);
 
 getGrid(tab.length, tab);
 
-document.querySelector('#propose').addEventListener('click', function () {
+function startPartie() {
     //when word is propose
 
     document.querySelector('#error').classList.add('d-none'); //remove error message
@@ -163,4 +162,16 @@ document.querySelector('#propose').addEventListener('click', function () {
     }
 
     document.querySelector('#word_propose').value = '';
+}
+
+document.querySelector('#propose').addEventListener('click', function () {
+    startPartie();
 });
+
+document.querySelector('#word_propose').addEventListener('keydown', function (event) {
+
+    if (event.key === "Enter") {
+        startPartie();
+    }
+});
+

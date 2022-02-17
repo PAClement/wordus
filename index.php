@@ -22,18 +22,18 @@
             </div>
         </div>
 
-        <div class="row ">
-            <div class="d-flex justify-content-center">
-                <div id="input-win" class="col-6 mb-5 d-flex">
-                    <input id="word_propose" class="py-2 form-control rounded-0 rounded-start" type="text" placeholder="Mot à proposer" />
-                    <button id="propose" type="button" class="btn btn-info text-white rounded-0 rounded-end">Proposer</button>
-                </div>
-            </div>
-        </div>
-
         <div class="row">
             <div class="col-12 d-flex justify-content-center">
                 <div id="grid"></div>
+            </div>
+        </div>
+
+        <div class="row ">
+            <div class="d-flex justify-content-center">
+                <div id="input-win" class="col-6 mt-5 d-flex">
+                    <input id="word_propose" class="py-2 form-control rounded-0 rounded-start" type="text" placeholder="Mot à proposer" />
+                    <button id="propose" type="button" class="btn btn-info text-white rounded-0 rounded-end">Proposer</button>
+                </div>
             </div>
         </div>
 
