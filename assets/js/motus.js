@@ -13,7 +13,7 @@ function getGrid(tab_length, tab) {
         n = 0;
         while (n < tab_length) {
 
-            n === 0 && i === 1 ? discover = discover.concat(`<td class="red_letter">${tab[0]}</td>`) : "";
+            n === 0 && i === 1 ? discover = discover.concat(`<td>${tab[0]}</td>`) : "";
             n != 0 && i === 1 ? discover = discover.concat('<td>.</td>') : "";
             i != 1 ? discover = discover.concat('<td></td>') : "";
 
@@ -29,9 +29,7 @@ function getGrid(tab_length, tab) {
 }
 
 let tab = words[getRandomInt(words.length)].split('');
-let row = 1;
-
-console.log(tab);
+let row = 1; //current line of grid 
 
 getGrid(tab.length, tab);
 
@@ -44,8 +42,9 @@ function startPartie() {
 
         document.querySelector('#error').classList.add('d-none'); //remove error message
 
-        let shadow_tab = [].concat(tab); //create shadowtab of tab (save value)
+        let shadow_tab = [].concat(tab); //create shadowtab of tab (his value)
         let tab_find = []; //tab find letter
+
         let child = 0; //place on DOM for letter
         let win = 0; //test if is win word
 
@@ -54,9 +53,7 @@ function startPartie() {
         for (let i = 0; i < tab.length; i++) {
             child++;
 
-            //Put tab_word value to uppercase
-            tab_word[i] = tab_word[i].toUpperCase();
-
+            tab_word[i] = tab_word[i].toUpperCase(); //Put tab_word value to uppercase
             tab_word[i] != tab[i] ? document.querySelector(`#row_${row} td:nth-child(${child})`).classList.remove('red_letter') : "";
 
             document.querySelector(`#row_${row} td:nth-child(${child})`).innerHTML = tab_word[i];
@@ -104,17 +101,26 @@ function startPartie() {
         row++;
         child = 0;
 
-        if (win != tab.length) {
+        //put find letter on current row
+        if (win != tab.length && row != 7) {
+
             tab_find.forEach((target) => {
                 child++;
                 target != "tab_find-r" ? document.querySelector(`#row_${row} td:nth-child(${child})`).innerHTML = target : document.querySelector(`#row_${row} td:nth-child(${child})`).innerHTML = ".";
 
             });
-        } else {
+
+        } else if (win === tab.length) {
             //IF WORD WIN
-            document.querySelector('#input-win').classList.add('d-none'); // remove input and btn
+            document.querySelector('#input_propose').classList.add('d-none'); // remove input and btn
             document.querySelector('#success').classList.remove('d-none'); //add error message for word too small
 
+        } else {
+            //if LOOSSE
+            document.querySelector('#input_propose').classList.add('d-none'); // remove input and btn
+            document.querySelector('#loose').classList.remove('d-none'); //add error message for word too small
+
+            document.querySelector('#loose_word').innerHTML = tab.join('');//tab to string for display
         }
 
     } else if (tab.length > tab_word.length) {
