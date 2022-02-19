@@ -96,7 +96,7 @@ function startPartie() {
             }
         }
 
-        tab = shadow_tab; //recover tab
+        tab = shadow_tab; //recover data of tab
 
         row++;
         child = 0;
