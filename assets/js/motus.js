@@ -10,12 +10,12 @@ function getGrid(tab_length, tab) {
 
         discover = discover.concat(`<tr id=\"row_${i}\">`);
 
-        n = 0;
+        let n = 0;
         while (n < tab_length) {
 
             n === 0 && i === 1 ? discover = discover.concat(`<td>${tab[0]}</td>`) : "";
-            n != 0 && i === 1 ? discover = discover.concat('<td>.</td>') : "";
-            i != 1 ? discover = discover.concat('<td></td>') : "";
+            n !== 0 && i === 1 ? discover = discover.concat('<td>.</td>') : "";
+            i !== 1 ? discover = discover.concat('<td></td>') : "";
 
             n++;
         }
@@ -28,21 +28,16 @@ function getGrid(tab_length, tab) {
     document.querySelector('#grid').innerHTML = discover;
 }
 
-let tab = words[getRandomInt(words.length)].split('');
-let row = 1; //current line of grid 
-
-getGrid(tab.length, tab);
-
-function startPartie() {
+function GetWord() {
     //when word is propose
 
     let tab_word = document.querySelector('#word_propose').value.split(''); //recover value of input
 
-    if (tab_word.length == tab.length && row <= 6) {
+    if (tab_word.length === tab.length && row <= 6) {
 
         document.querySelector('#error').classList.add('d-none'); //remove error message
 
-        let shadow_tab = [].concat(tab); //create shadowtab of tab (his value)
+        let shadow_tab = [].concat(tab); //create shadow of tab (his value)
         let tab_find = []; //tab find letter
 
         let child = 0; //place on DOM for letter
@@ -54,7 +49,9 @@ function startPartie() {
             child++;
 
             tab_word[i] = tab_word[i].toUpperCase(); //Put tab_word value to uppercase
-            tab_word[i] != tab[i] ? document.querySelector(`#row_${row} td:nth-child(${child})`).classList.remove('red_letter') : "";
+            tab_word[i] !== tab[i] 
+                ? document.querySelector(`#row_${row} td:nth-child(${child})`).classList.remove('red_letter')
+                : "";
 
             document.querySelector(`#row_${row} td:nth-child(${child})`).innerHTML = tab_word[i];
         }
@@ -86,7 +83,7 @@ function startPartie() {
             child++;
 
             for (let j = 0; j < tab.length; j++) {
-                if (tab_word[i] === tab[j] && tab[j] != tab_find[j]) {
+                if (tab_word[i] === tab[j] && tab[j] !== tab_find[j]) {
 
                     document.querySelector(`#row_${row} td:nth-child(${child})`).classList.add('yellow_letter');
 
@@ -102,11 +99,13 @@ function startPartie() {
         child = 0;
 
         //put find letter on current row
-        if (win != tab.length && row != 7) {
+        if (win !== tab.length && row !== 7) {
 
             tab_find.forEach((target) => {
                 child++;
-                target != "tab_find-r" ? document.querySelector(`#row_${row} td:nth-child(${child})`).innerHTML = target : document.querySelector(`#row_${row} td:nth-child(${child})`).innerHTML = ".";
+                target !== "tab_find-r"
+                    ? document.querySelector(`#row_${row} td:nth-child(${child})`).innerHTML = target
+                    : document.querySelector(`#row_${row} td:nth-child(${child})`).innerHTML = ".";
 
             });
 
@@ -116,7 +115,7 @@ function startPartie() {
             document.querySelector('#success').classList.remove('d-none'); //add error message for word too small
 
         } else {
-            //if LOOSSE
+            //if LOOSE
             document.querySelector('#input_propose').classList.add('d-none'); // remove input and btn
             document.querySelector('#loose').classList.remove('d-none'); //add error message for word too small
 
@@ -138,12 +137,23 @@ function startPartie() {
     document.querySelector('#word_propose').value = '';
 }
 
+//Listener
+document.querySelector('#word_propose').addEventListener("input", function (e){
+
+    console.log(e.target.value)
+})
+
 document.querySelector('#propose').addEventListener('click', function () {
-    startPartie();
+    GetWord();
 });
 
 document.querySelector('#word_propose').addEventListener('keydown', function (event) {
-
-    event.key === "Enter" ? startPartie() : "";
+    //Lors de l'appuie sur le bouton d'entrée
+    event.key === "Enter" ? GetWord() : "";
 });
+
+let tab = words[getRandomInt(words.length)].split('');
+let row = 1; //current line of grid
+
+getGrid(tab.length, tab);
 
