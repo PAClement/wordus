@@ -1,4 +1,3 @@
-
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
 }
@@ -32,96 +31,109 @@ function GetWord() {
     //when word is propose
 
     let tab_word = document.querySelector('#word_propose').value.split(''); //recover value of input
-
     if (tab_word.length === tab.length && row <= 6) {
 
-        document.querySelector('#error').classList.add('d-none'); //remove error message
-
-        let shadow_tab = [].concat(tab); //create shadow of tab (his value)
-        let tab_find = []; //tab find letter
-
-        let child = 0; //place on DOM for letter
-        let win = 0; //test if is win word
-
-        //put the words
-
-        for (let i = 0; i < tab.length; i++) {
-            child++;
-
-            tab_word[i] = tab_word[i].toUpperCase(); //Put tab_word value to uppercase
-            tab_word[i] !== tab[i] 
-                ? document.querySelector(`#row_${row} td:nth-child(${child})`).classList.remove('red_letter')
-                : "";
-
-            document.querySelector(`#row_${row} td:nth-child(${child})`).innerHTML = tab_word[i];
-        }
-
-        //same letter good place
-
-        child = 0;
-
-        for (let i = 0; i < tab.length; i++) {
-            child++;
-
-            if (tab[i] === tab_word[i]) {
-
-                document.querySelector(`#row_${row} td:nth-child(${child})`).classList.add('red_letter');
-                tab_find[i] = tab_word.splice(i, 1, " "); //recover good letter in tab_find
-
-                win++;
-
-            } else {
-                tab_find[i] = "tab_find-r";
+        let stateOfWord = false
+        words.map(target => {
+            if(target === tab_word.join('')){
+                stateOfWord = true;
             }
-        }
+        })
 
-        //same letter other place
+        if (stateOfWord) {
+            console.log("i do");
+            document.querySelector('#error').classList.add('d-none'); //remove error message
 
-        child = 0;
+            let shadow_tab = [].concat(tab); //create shadow of tab (his value)
+            let tab_find = []; //tab find letter
 
-        for (let i = 0; i < tab.length; i++) {
-            child++;
+            let child = 0; //place on DOM for letter
+            let win = 0; //test if is win word
 
-            for (let j = 0; j < tab.length; j++) {
-                if (tab_word[i] === tab[j] && tab[j] !== tab_find[j]) {
+            //put the words
 
-                    document.querySelector(`#row_${row} td:nth-child(${child})`).classList.add('yellow_letter');
+            for (let i = 0; i < tab.length; i++) {
+                child++;
 
-                    tab.splice(j, 1, "tab-r");
-                    tab_word.splice(i, 1, "tab_word-r");
+                tab_word[i] = tab_word[i].toUpperCase(); //Put tab_word value to uppercase
+                tab_word[i] !== tab[i]
+                    ? document.querySelector(`#row_${row} td:nth-child(${child})`).classList.remove('red_letter')
+                    : "";
+
+                document.querySelector(`#row_${row} td:nth-child(${child})`).innerHTML = tab_word[i];
+            }
+
+            //same letter good place
+
+            child = 0;
+
+            for (let i = 0; i < tab.length; i++) {
+                child++;
+
+                if (tab[i] === tab_word[i]) {
+
+                    document.querySelector(`#row_${row} td:nth-child(${child})`).classList.add('red_letter');
+                    tab_find[i] = tab_word.splice(i, 1, " "); //recover good letter in tab_find
+
+                    win++;
+
+                } else {
+                    tab_find[i] = "tab_find-r";
                 }
             }
-        }
 
-        tab = shadow_tab; //recover data of tab
+            //same letter other place
 
-        row++;
-        child = 0;
+            child = 0;
 
-        //put find letter on current row
-        if (win !== tab.length && row !== 7) {
-
-            tab_find.forEach((target) => {
+            for (let i = 0; i < tab.length; i++) {
                 child++;
-                target !== "tab_find-r"
-                    ? document.querySelector(`#row_${row} td:nth-child(${child})`).innerHTML = target
-                    : document.querySelector(`#row_${row} td:nth-child(${child})`).innerHTML = ".";
 
-            });
+                for (let j = 0; j < tab.length; j++) {
+                    if (tab_word[i] === tab[j] && tab[j] !== tab_find[j]) {
 
-        } else if (win === tab.length) {
-            //IF WORD WIN
-            document.querySelector('#input_propose').classList.add('d-none'); // remove input and btn
-            document.querySelector('#success').classList.remove('d-none'); //add error message for word too small
+                        document.querySelector(`#row_${row} td:nth-child(${child})`).classList.add('yellow_letter');
 
-        } else {
-            //if LOOSE
-            document.querySelector('#input_propose').classList.add('d-none'); // remove input and btn
-            document.querySelector('#loose').classList.remove('d-none'); //add error message for word too small
+                        tab.splice(j, 1, "tab-r");
+                        tab_word.splice(i, 1, "tab_word-r");
+                    }
+                }
+            }
 
-            document.querySelector('#loose_word').innerHTML = tab.join('');//tab to string for display
+            tab = shadow_tab; //recover data of tab
+
+            row++;
+            child = 0;
+
+            //put find letter on current row
+            if (win !== tab.length && row !== 7) {
+
+                tab_find.forEach((target) => {
+                    child++;
+                    target !== "tab_find-r"
+                        ? document.querySelector(`#row_${row} td:nth-child(${child})`).innerHTML = target
+                        : document.querySelector(`#row_${row} td:nth-child(${child})`).innerHTML = ".";
+
+                });
+
+            } else if (win === tab.length) {
+                //IF WORD WIN
+                document.querySelector('#input_propose').classList.add('d-none'); // remove input and btn
+                document.querySelector('#success').classList.remove('d-none'); //add error message for word too small
+
+            } else {
+                //if LOOSE
+                document.querySelector('#input_propose').classList.add('d-none'); // remove input and btn
+                document.querySelector('#loose').classList.remove('d-none'); //add error message for word too small
+
+                document.querySelector('#loose_word').innerHTML = tab.join('');//tab to string for display
+            }
+
+        }else{
+            //Current word not present in our dictionnary
+            document.querySelector('#error').classList.remove('d-none'); //add error message for word too small
+            document.querySelector('#error').innerHTML = 'CE MOT N\'EST PAS PRÉSENT DANS NOTRE DICTIONNAIRE';
         }
-
     } else if (tab.length > tab_word.length) {
 
         document.querySelector('#error').classList.remove('d-none'); //add error message for word too small
@@ -138,7 +150,9 @@ function GetWord() {
 }
 
 //Listener
-document.querySelector('#word_propose').addEventListener("input", function (e){
+document.querySelector('#word_propose').addEventListener("input", function (e) {
+    //Futur update put input on tab direct not in input
+    document.querySelector('#error').classList.add('d-none'); //add error message for word too small
 
     console.log(e.target.value)
 })
