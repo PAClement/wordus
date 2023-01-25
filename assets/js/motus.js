@@ -114,7 +114,6 @@ function GetWord() {
                         : document.querySelector(`#row_${row} td:nth-child(${child})`).innerHTML = ".";
 
                 });
-
             } else if (win === tab.length) {
                 //IF WORD WIN
                 document.querySelector('#input_propose').classList.add('d-none'); // remove input and btn
@@ -128,55 +127,66 @@ function GetWord() {
                 document.querySelector('#loose_word').innerHTML = tab.join('');//tab to string for display
             }
 
+            document.querySelector('#word_propose').value = '';
         }else{
             //Current word not present in our dictionnary
-            document.querySelector('#error').classList.remove('d-none'); //add error message for word too small
-            document.querySelector('#error').innerHTML = 'CE MOT N\'EST PAS PRÉSENT DANS NOTRE DICTIONNAIRE';
+            displayAlert("mot pas la")
         }
     } else if (tab.length > tab_word.length) {
-
-        document.querySelector('#error').classList.remove('d-none'); //add error message for word too small
-        document.querySelector('#error').innerHTML = 'MOT TROP COURT';
-
-    } else {
-
-        document.querySelector('#error').classList.remove('d-none'); //add error message for word too long<
-        document.querySelector('#error').innerHTML = 'MOT TROP LONG';
+        displayAlert("mot trop court")
 
     }
+}
 
-    document.querySelector('#word_propose').value = '';
+function displayAlert(text){
+    toast.show()
+    document.querySelector('#toast-content').innerHTML = text;
+
+    setTimeout(()=>{
+        toast.hide()
+    },2000)
 }
 
 //Listener
 document.querySelector('#word_propose').addEventListener("input", function (e) {
     //Futur update put input on tab direct not in input
-    document.querySelector('#error').classList.add('d-none'); //add error message for word too small
 
-    let currentRow = document.querySelector(`#row_${row}`)
-    let currentWord = e.target.value
+    if(e.data !== " "){
+        //Affichage du mot dans le tableau
+        let currentRow = document.querySelector(`#row_${row}`)
+        let currentWord = e.target.value
 
-    if(currentWord.length <= tab.length)
-    for(let i = 0 ; i < currentRow.children.length ; i++){
-        currentRow.children[i].innerHTML = currentWord[i] !== undefined ? currentWord[i] : "."
+        if(currentWord.length <= tab.length){
+
+            for(let i = 0 ; i < currentRow.children.length ; i++){
+                currentRow.children[i].innerHTML = currentWord[i] !== undefined ? currentWord[i] : "."
+            }
+
+            if(currentWord.length === 0){
+                currentRow.children[0].innerHTML = tab[0]
+            }
+        }
+    }else{
+        e.target.value = e.target.value.trim() //Enlever les espaces
     }
 })
-
 document.querySelector('#word_propose').addEventListener('keydown', function (event) {
     //Lors de l'appuie sur le bouton d'entrée
     event.key === "Enter" ? GetWord() : "";
 });
+document.addEventListener("click", function(){
+    input.focus()
+})
 
 let input = document.querySelector('#word_propose');
 let tab = words[getRandomInt(words.length)].split('');
 let row = 1; //current line of grid
 
+let toastLiveExample = document.getElementById('liveToast')
+let toast = new bootstrap.Toast(toastLiveExample)
+
 input.maxLength = tab.length
 input.focus()
-
-document.addEventListener("click", function(){
-    input.focus()
-})
 
 getGrid(tab.length, tab);
 
