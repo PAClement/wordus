@@ -35,13 +35,12 @@ function GetWord() {
 
         let stateOfWord = false
         words.map(target => {
-            if(target === tab_word.join('')){
+            if(target === tab_word.join('').toUpperCase()){
                 stateOfWord = true;
             }
         })
 
         if (stateOfWord) {
-            console.log("i do");
             document.querySelector('#error').classList.add('d-none'); //remove error message
 
             let shadow_tab = [].concat(tab); //create shadow of tab (his value)
@@ -154,20 +153,30 @@ document.querySelector('#word_propose').addEventListener("input", function (e) {
     //Futur update put input on tab direct not in input
     document.querySelector('#error').classList.add('d-none'); //add error message for word too small
 
-    console.log(e.target.value)
-})
+    let currentRow = document.querySelector(`#row_${row}`)
+    let currentWord = e.target.value
 
-document.querySelector('#propose').addEventListener('click', function () {
-    GetWord();
-});
+    if(currentWord.length <= tab.length)
+    for(let i = 0 ; i < currentRow.children.length ; i++){
+        currentRow.children[i].innerHTML = currentWord[i] !== undefined ? currentWord[i] : "."
+    }
+})
 
 document.querySelector('#word_propose').addEventListener('keydown', function (event) {
     //Lors de l'appuie sur le bouton d'entrée
     event.key === "Enter" ? GetWord() : "";
 });
 
+let input = document.querySelector('#word_propose');
 let tab = words[getRandomInt(words.length)].split('');
 let row = 1; //current line of grid
+
+input.maxLength = tab.length
+input.focus()
+
+document.addEventListener("click", function(){
+    input.focus()
+})
 
 getGrid(tab.length, tab);
 
