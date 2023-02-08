@@ -42,23 +42,25 @@
             </div>
         </div>
     </div>
+</div>
 
-    <div class="row">
-        <div class="col-12 d-flex justify-content-center">
-            <div id="error" class="d-none alert bg-danger col-6 text-white text-center mt-3" role="alert"></div>
-            <div id="success" class="d-none alert bg-success col-6 text-white text-center mt-3" role="alert">
-                BRAVOO VOUS AVEZ GAGNÉ !!<br>
-                <button type="button" onclick='window.location.reload()' class="btn btn-warning mt-1">Rejouer ?</button>
+<div class="modal fade" id="infoModal" tabindex="-1" aria-labelledby="infoModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div id="infoModalHeader" class="modal-header border-0">
+                <h4 class="modal-title text-white" id="infoModalLabel"></h4>
             </div>
-            <div id="loose" class="d-none alert bg-danger col-6 text-white text-center mt-3" role="alert">
-                DOMMAGE VOUS AVEZ PERDU !! le mot était : <span id="loose_word"></span><br>
-                <button type="button" onclick='window.location.reload()' class="btn btn-warning mt-1">Rejouer ?</button>
+            <div class="modal-body text-center text-white bg-dark">
+                <h6 class="" id="infoModalcontent"></h6>
+
+                <button type="button" onclick='window.location.reload()' class="btn btn-info text-white">Rejouer ?</button>
             </div>
         </div>
     </div>
 </div>
+
 <div class="position-fixed top-0 end-0 p-3" style="z-index: 11">
-    <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+    <div id="liveToast" class="toast bg-danger text-white" role="alert" aria-live="assertive" aria-atomic="true">
         <div class="toast-body" id="toast-content">
             Hello, world! This is a toast message.
         </div>

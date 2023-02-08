@@ -41,7 +41,6 @@ function GetWord() {
         })
 
         if (stateOfWord) {
-            document.querySelector('#error').classList.add('d-none'); //remove error message
 
             let shadow_tab = [].concat(tab); //create shadow of tab (his value)
             let tab_find = []; //tab find letter
@@ -116,24 +115,22 @@ function GetWord() {
                 });
             } else if (win === tab.length) {
                 //IF WORD WIN
-                document.querySelector('#input_propose').classList.add('d-none'); // remove input and btn
-                document.querySelector('#success').classList.remove('d-none'); //add error message for word too small
+                let message = `Excellent vous avez gagné ! <p class="my-3"> Vous avez trouvé le mot ${tab.join("")}</p>`
+                modalEndGame("Congratulation !",message, "success")
 
             } else {
                 //if LOOSE
-                document.querySelector('#input_propose').classList.add('d-none'); // remove input and btn
-                document.querySelector('#loose').classList.remove('d-none'); //add error message for word too small
-
-                document.querySelector('#loose_word').innerHTML = tab.join('');//tab to string for display
+                let message = `Dommage vous avez perdu ! <p class="my-3"> le mot était <span class="fw-bold">${tab.join("")}</span></p>`
+                modalEndGame("Dommage :(",message, "danger")
             }
 
             document.querySelector('#word_propose').value = '';
         }else{
             //Current word not present in our dictionnary
-            displayAlert("mot pas la")
+            displayAlert("Ce mot n\'est pas présent dans notre dictionnaire !")
         }
     } else if (tab.length > tab_word.length) {
-        displayAlert("mot trop court")
+        displayAlert("Ce mot est trop court !")
 
     }
 }
@@ -145,6 +142,13 @@ function displayAlert(text){
     setTimeout(()=>{
         toast.hide()
     },2000)
+}
+function modalEndGame(title, content, color){
+    document.querySelector('#infoModalLabel').innerHTML = title
+    document.querySelector('#infoModalcontent').innerHTML = content
+    document.querySelector('#infoModalHeader').classList.add(`bg-${color}`);
+
+    infoModal.show()
 }
 
 //Listener
@@ -181,12 +185,18 @@ document.addEventListener("click", function(){
 let input = document.querySelector('#word_propose');
 let tab = words[getRandomInt(words.length)].split('');
 let row = 1; //current line of grid
+let infoModal = new bootstrap.Modal(document.querySelector('#infoModal'), {
+    keyboard: false,
+    backdrop: 'static'
+})
 
 let toastLiveExample = document.getElementById('liveToast')
 let toast = new bootstrap.Toast(toastLiveExample)
 
 input.maxLength = tab.length
 input.focus()
+
+console.log(tab)
 
 getGrid(tab.length, tab);
 
