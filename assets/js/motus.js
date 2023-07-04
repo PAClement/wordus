@@ -30,7 +30,7 @@ function getGrid(tab_length, tab) {
 function GetWord() {
     //when word is propose
 
-    let tab_word = document.querySelector('#word_propose').value.split(''); //recover value of input
+    let tab_word = input.value.split(''); //recover value of input
     if (tab_word.length === tab.length && row <= 6) {
 
         let stateOfWord = false
@@ -124,7 +124,7 @@ function GetWord() {
                 modalEndGame("Dommage :(",message, "danger")
             }
 
-            document.querySelector('#word_propose').value = '';
+            input.value = '';
         }else{
             //Current word not present in our dictionnary
             displayAlert("Ce mot n\'est pas présent dans notre dictionnaire !")
@@ -151,8 +151,12 @@ function modalEndGame(title, content, color){
     infoModal.show()
 }
 
+//init
+let input = document.querySelector('#word_propose');
+
+
 //Listener
-document.querySelector('#word_propose').addEventListener("input", function (e) {
+input.addEventListener("input", function (e) {
     //Futur update put input on tab direct not in input
 
     if(e.data !== " "){
@@ -170,11 +174,21 @@ document.querySelector('#word_propose').addEventListener("input", function (e) {
                 currentRow.children[0].innerHTML = tab[0]
             }
         }
+
+        if(e.target.value.slice(-1) !== "") {
+            //Light keyboard when the letter is pressed
+            let keyboard_td = document.getElementById(`${e.target.value.slice(-1).toUpperCase()}`)
+
+            keyboard_td.classList.add('tdLight');
+            setTimeout(() => {
+                keyboard_td.classList.remove('tdLight')
+            }, 100)
+        }
     }else{
         e.target.value = e.target.value.trim() //Enlever les espaces
     }
 })
-document.querySelector('#word_propose').addEventListener('keydown', function (event) {
+input.addEventListener('keydown', function (event) {
     //Lors de l'appuie sur le bouton d'entrée
     event.key === "Enter" ? GetWord() : "";
 });
@@ -182,8 +196,8 @@ document.addEventListener("click", function(){
     input.focus()
 })
 
-let input = document.querySelector('#word_propose');
-let tab = words[getRandomInt(words.length)].split('');
+
+let tab = words[getRandomInt(words.length)].split('') //get random word
 let row = 1; //current line of grid
 let infoModal = new bootstrap.Modal(document.querySelector('#infoModal'), {
     keyboard: false,

@@ -3,7 +3,7 @@ body {
     background-color: #1a1a1a;
 }
 
-td {
+#table_game td {
     border: 2px solid;
     height: 70px;
     width: 70px;
@@ -32,4 +32,16 @@ td {
 
 .red_letter {
     background-color: #b71c1c;
+}
+
+#table_keyboard td{
+    margin: 10%;
+    padding: 3% 10%;
+    border-radius: 10%;
+    color: white;
+    background: #262626;
+}
+
+.tdLight{
+    background: #7e7e7e !important;
 }
